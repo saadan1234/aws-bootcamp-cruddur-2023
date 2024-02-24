@@ -1,7 +1,11 @@
-#Install NPM
--> cd frontend-react-js
--> npm Install
+#Install NPM to run the frontend:
 
-#Run Service 
--> cd ..
--> 
+cd frontend-react-js
+npm install
+
+#To get the postgresql server running:
+
+curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+sudo apt update
+sudo apt install -y postgresql-client-13 libpq-dev
