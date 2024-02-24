@@ -1,0 +1,7 @@
+#Install NPM
+-> cd frontend-react-js
+-> npm Install
+
+#Run Service 
+-> cd ..
+-> 
