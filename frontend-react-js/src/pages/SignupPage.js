@@ -20,6 +20,7 @@ export default function SignupPage() {
   const onsubmit = async (event) => {
     event.preventDefault();
     setCognitoErrors('')
+    console.log(username,password,name)
     try {
         const { user } = await Auth.signUp({
           username: email,

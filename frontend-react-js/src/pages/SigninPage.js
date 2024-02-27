@@ -13,29 +13,24 @@ export default function SigninPage() {
   const [cognitoErrors, setCognitoErrors] = React.useState('');
 
   const onsubmit = async (event) => {
-    event.preventDefault();
     setErrors('')
+    event.preventDefault();
     try {
-      const { user } = await Auth.signUp({
-        username: email,
-        password: password,
-        attributes: {
-          name: name,
-          email: email,
-          preferred_username: username,
-        },
-        autoSignIn: { // optional - enables auto sign in after user is confirmed
-          enabled: true,
-        }
-      });
-      console.log(user);
-      window.location.href = `/confirm?email=${email}`
+      Auth.signIn(email, password)
+        .then(user => {
+          localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
+          window.location.href = "/"
+        })
+        .catch(err => { console.log('Error!', err) });
     } catch (error) {
-      console.log(error);
+      if (error.code == 'UserNotConfirmedException') {
+        window.location.href = "/confirm"
+      }
       setErrors(error.message)
     }
     return false
   }
+  
 
   const email_onchange = (event) => {
     setEmail(event.target.value);
