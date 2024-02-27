@@ -64,9 +64,9 @@ cors = CORS(
   methods="OPTIONS,GET,HEAD,POST"
 )
 
-xray_url = os.getenv("AWS_XRAY_URL")
-xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
-XRayMiddleware(app, xray_recorder)
+# xray_url = os.getenv("AWS_XRAY_URL")
+# xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
+# XRayMiddleware(app, xray_recorder)
 
 ## XXX hack to make request data work with pyrollbar <= 0.16.3
 def _get_flask_request():

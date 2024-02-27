@@ -16,3 +16,5 @@ cd backend-flask
 pip install -r requirements.txt
 
 #Frontend: npm i aws-amplify --save
+
+aws cognito-idp admin-set-user-password --username cruddur-user-pool --password Testing123! --user-pool-id us-east-1_5m947FhmN --permanent

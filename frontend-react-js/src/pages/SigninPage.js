@@ -1,6 +1,6 @@
 import './SigninPage.css';
 import React from "react";
-import {ReactComponent as Logo} from '../components/svg/logo.svg';
+import { ReactComponent as Logo } from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
 
 import { Auth } from 'aws-amplify';
@@ -13,20 +13,28 @@ export default function SigninPage() {
   const [cognitoErrors, setCognitoErrors] = React.useState('');
 
   const onsubmit = async (event) => {
-    setErrors('')
     event.preventDefault();
-    Auth.signIn(email, password)
-      .then(user => {
-        localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
-        window.location.href = "/"
-      })
-      .catch(error => { 
-        if (error.code == 'UserNotConfirmedException') {
-          window.location.href = "/confirm"
+    setErrors('')
+    try {
+      const { user } = await Auth.signUp({
+        username: email,
+        password: password,
+        attributes: {
+          name: name,
+          email: email,
+          preferred_username: username,
+        },
+        autoSignIn: { // optional - enables auto sign in after user is confirmed
+          enabled: true,
         }
-        setErrors(error.message)
-        });
-    return false  
+      });
+      console.log(user);
+      window.location.href = `/confirm?email=${email}`
+    } catch (error) {
+      console.log(error);
+      setErrors(error.message)
+    }
+    return false
   }
 
   const email_onchange = (event) => {
@@ -37,7 +45,7 @@ export default function SigninPage() {
   }
 
   let el_errors;
-  if (errors){
+  if (errors) {
     el_errors = <div className='errors'>{errors}</div>;
   }
 
@@ -47,7 +55,7 @@ export default function SigninPage() {
         <Logo className='logo' />
       </div>
       <div className='signin-wrapper'>
-        <form 
+        <form
           className='signin_form'
           onSubmit={onsubmit}
         >
@@ -58,7 +66,7 @@ export default function SigninPage() {
               <input
                 type="text"
                 value={email}
-                onChange={email_onchange} 
+                onChange={email_onchange}
               />
             </div>
             <div className='field text_field password'>
@@ -66,7 +74,7 @@ export default function SigninPage() {
               <input
                 type="password"
                 value={password}
-                onChange={password_onchange} 
+                onChange={password_onchange}
               />
             </div>
           </div>
