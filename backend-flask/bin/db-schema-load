@@ -1,0 +1,16 @@
+#! /usr/bin/bash
+
+echo File: db-schema-load 
+
+schema_path=$(realpath .)/db/schema.sql
+echo Schema Path : $schema_path
+
+if [ "$1" = "prod" ]; then
+    echo "Production Mode"
+    CON_URL=$PROD_CONNECTION_URL
+else 
+    echo "Dev Mode"
+    CON_URL=$CONNECTION_URL
+fi 
+
+psql $CONNECTION_URL cruddur < $schema_path
