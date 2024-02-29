@@ -21,4 +21,3 @@ tasks:
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
-    - ckolkman.vscode-postgres
