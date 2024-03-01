@@ -1,14 +1,13 @@
 from psycopg_pool import ConnectionPool
 import os
 
-
 def query_wrap_object(template):
   sql = f"""
   (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
   {template}
   ) object_row);
   """
-  return sql 
+  return sql
 
 def query_wrap_array(template):
   sql = f"""
