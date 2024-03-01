@@ -11,4 +11,3 @@ opentelemetry-instrumentation-flask
 opentelemetry-instrumentation-requests
 psycopg[binary]
 psycopg[pool]
-Flask-AWSCognito
