@@ -1,4 +1,12 @@
 #! /usr/bin/bash
 
+if [ "$1" = "prod" ]; then
+    echo "Production Mode"
+    CON_URL=$PROD_CONNECTION_URL
+else 
+    echo "Dev Mode"
+    CON_URL=$CONNECTION_URL
+fi 
+
 echo DB Connection
-psql $CONNECTION_URL
+psql $CON_URL

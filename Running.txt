@@ -43,3 +43,8 @@ aws rds create-db-instance \
   export PROD_CONNECTION_URL="postgresql://cruddurroot:Testing123!@cruddur-db-instance.c5cwgc2ion7s.us-east-1.rds.amazonaws.com:5432/cruddur"
 
   gp env PROD_CONNECTION_URL="postgresql://cruddurroot:Testing123!@cruddur-db-instance.c5cwgc2ion7s.us-east-1.rds.amazonaws.com:5432/cruddur"
+
+export DB_SG_ID="sg-037ca58c3512dcacd"
+gp env DB_SG_ID="sg-037ca58c3512dcacd"
+export DB_SG_RULE_ID="sgr-0453cbd4a635e8f40"
+gp env DB_SG_RULE_ID="sgr-0453cbd4a635e8f40"
