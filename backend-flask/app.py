@@ -53,22 +53,25 @@ LOGGER.info("some message")
 app = Flask(__name__)
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
-frontend = os.getenv('FRONTEND_URL')
-backend = os.getenv('BACKEND_URL')
-origins = [frontend, backend]
-cors = CORS(
-  app, 
-  resources={r"/api/*": {"origins": origins}},
-  expose_headers="location,link",
-  allow_headers="content-type,if-modified-since",
-  methods="OPTIONS,GET,HEAD,POST"
-)
+
 
 # xray_url = os.getenv("AWS_XRAY_URL")
 # xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 # XRayMiddleware(app, xray_recorder)
 
 ## XXX hack to make request data work with pyrollbar <= 0.16.3
+
+frontend = os.getenv('FRONTEND_URL')
+backend = os.getenv('BACKEND_URL')
+origins = [frontend, backend]
+cors = CORS(
+  app, 
+  resources={r"/api/*": {"origins": origins}},
+  headers=['Content-Type', 'Authorization'], 
+  expose_headers='Authorization',
+  methods="OPTIONS,GET,HEAD,POST"
+)
+
 def _get_flask_request():
     print("Getting flask request")
     from flask import request
